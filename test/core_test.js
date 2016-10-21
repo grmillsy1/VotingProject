@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import {List, Map} from 'immutable';
 
-import { setEntries, next } from '../src/core';
+import { setEntries, next, getWinners, vote } from '../src/core';
 
 describe('application logic', () => {
 
@@ -43,7 +43,7 @@ describe('application logic', () => {
         })
       }),
       entries: List()
-    })))
+    });
   });
 
   it('adds to existing tally for that entry', () => {
@@ -51,18 +51,18 @@ describe('application logic', () => {
       vote: Map({
         pair: List.of('water', 'coffee'),
         tally: Map({
-          'water':4
+          'water': 4,
           'coffee': 1
-        })
+        }),
       }),
       entries: List()
     });
     const nextState = vote(state, 'coffee');
-      expext(nextState).to.equal(Map({
+      expect(nextState).to.equal(Map({
         vote: Map({
           pair: List.of('water', 'coffee'),
           tally: Map({
-            'water': 4
+            'water': 4,
             'coffee': 2
           })
         }),
@@ -76,10 +76,10 @@ describe('application logic', () => {
       vote: Map({
         pair: List.of('water', 'coffee'),
         tally: Map({
-          'water': 4
+          'water': 4,
           'coffee': 2
         })
-      })
+      }),
       entries: List.of('orange', 'tea', 'coke')
     })
     const nextState = next(state);
@@ -154,4 +154,3 @@ it('puts winner of current vote back to entries', () => {
       entries: List.of('127 Hours', 'Trainspotting', '28 Days Later')
     }));
   });
-});
