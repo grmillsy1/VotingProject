@@ -154,5 +154,4 @@ it('puts winner of current vote back to entries', () => {
       entries: List.of('127 Hours', 'Trainspotting', '28 Days Later')
     }));
   });
-
 });
