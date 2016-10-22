@@ -153,4 +153,23 @@ it('puts winner of current vote back to entries', () => {
       }),
       entries: List.of('127 Hours', 'Trainspotting', '28 Days Later')
     }));
+
+    // to here
+
+    it('automatically sets winner when no more entries left', () => {
+      const state = Map({
+        vote: Map({
+          pair: List.of('coffee', 'water'),
+          tally: Map({
+            'coffee': 4,
+            'water': 2
+          })
+        }),
+        entries: List()
+      });
+      const nextState = next(state);
+      expect(nextState).to.equal(Map({
+        winner: "coffee"
+      }));
+    });
   });
